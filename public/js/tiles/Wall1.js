@@ -6,6 +6,6 @@ export default class Wall1 extends tile {
     }
 
     render(context, image) {
-        context.drawImage(image, this.x, this.y)
+        context.drawImage(image, this.x, this.y, this.width, this.height);
     }
 }
