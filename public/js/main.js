@@ -1,17 +1,12 @@
+import GraphicsFactory from "./graphics/GraphicsFactory.js";
+
 const canvas = document.getElementById('screen');
 const ctx = canvas.getContext('2d');
 
 import Wall1 from "./tiles/Wall1.js";
-import {loadImage} from "./utils/loader.js";
 
 //load all images
-let map = new Map();
-
-const wallsConfig = [
-    {name: "wall1", imagePath: "./img/bricks_1.png"},
-    {name: "wall2", imagePath: "./img/bricks_2.png"},
-    {name: "wall3", imagePath: "./img/bricks_1.png"},
-];
+const graphics = new GraphicsFactory();
 const gameMap = [
     ["x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x"],
     ["x", "d", "d", "d", "d", "d", "d", "d", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "x"],
@@ -53,38 +48,29 @@ const gameMap = [
     ["x", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "-", " ", " ", " ", " ", " ", " ", " ", " ", "-", "-", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "x"],
     ["x", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "x", "x", "x", "x", "x"],
     ["x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x"]
-]
+];
 
-function loadWallImages(wallsConfig) {
-    let countLoadImages = 0;
-
-    wallsConfig.forEach(wall => {
-        loadImage(wall.imagePath).then(img => {
-            countLoadImages++;
-            map.set(wall.name, img);
-            if (countLoadImages === wallsConfig.length) {
-                main();
-            }
-        });
-    });
+function loadGraphics() {
+    graphics.loadAllGraphics();
+    setTimeout(() => {
+        main();
+    }, 1000);
 }
 
-function loadPlayerSpriteSheet() {
-
-}
-
-loadWallImages(wallsConfig);
+loadGraphics(ctx);
 
 function main() {
-
+    // console.log("main");
     for (let row = 0; row < gameMap.length; row++) {
         for (let col = 0; col < gameMap[row].length; col++) {
             if (gameMap[row][col] === "x") {
                 const wall1 = new Wall1("wall1", col * 40, row * 40, 40, 40);
-                wall1.render(ctx, map.get(wall1.name));
+                wall1.render(ctx, graphics.getImage(wall1.name));
             }
         }
     }
+    // console.log(graphics.graphicMap);
+    // console.log(graphics.graphicMap.get("wall1"));
 }
 
 
