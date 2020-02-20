@@ -5,7 +5,9 @@ const wallsConfig = [
     {name: "wall2", imagePath: "./img/bricks_2.png"},
     {name: "wall3", imagePath: "./img/bricks_1.png"},
 ];
+const entityConfig = {
 
+}
 export default class GraphicsFactory {
     constructor() {
         this.graphicMap = new Map();
@@ -13,14 +15,12 @@ export default class GraphicsFactory {
 
     loadAllGraphics() {
         this.loadWallImages(wallsConfig);
+        this.loadEnitiesGraphics(entityConfig);
     }
 
     loadWallImages(wallsConfig) {
-        let countLoadImages = 0;
-
         wallsConfig.forEach(wall => {
             loadImage(wall.imagePath).then(img => {
-                countLoadImages++;
                 this.graphicMap.set(wall.name, img);
             });
         });
@@ -28,5 +28,9 @@ export default class GraphicsFactory {
 
     getImage(name) {
         return this.graphicMap.get(name);
+    }
+
+    loadEnitiesGraphics(entityConfig) {
+        entityConfig.forEach()
     }
 }
