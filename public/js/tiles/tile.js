@@ -1,16 +1,14 @@
-import {loadImage} from "../utils/loader.js";
-
 export default class Tile {
-    constructor(name, x, y, width, height) {
+    constructor(name, row, col, width, height) {
         this.name = name;
-        this.x = x;
-        this.y = y;
+        this.row = row;
+        this.col = col;
         this.width = width;
         this.height = height
         this.solid = true;
     }
 
     render(context, image) {
-        context.drawImage(image, this.x, this.y, this.width, this.height);
+        context.drawImage(image, this.col, this.row, this.width, this.height);
     }
 }

@@ -8,20 +8,20 @@ const TileFactory = (() => {
     function createInstance() {
         return {
             tileTable: new Map(),
-            getTile: (name, x, y) => {
+            getTile: (name, row, col) => {
                 const temp = instance.tileTable.get(name);
                 const newClone = Object.assign(new Tile(), temp);
 
-                newClone.x = x * tileSize;
-                newClone.y = y * tileSize;
+                newClone.row = row * tileSize;
+                newClone.col = col * tileSize;
                 return newClone;
             }
         };
     }
 
     function loadCache() {
-        const defaultX = 0, defaultY = 0;
-        const wall1 = new Wall1("wall1", defaultX * tileSize, defaultY * tileSize, tileSize, tileSize);
+        const defaultRow = 0, defaultCol = 0;
+        const wall1 = new Wall1("wall1", defaultRow * tileSize, defaultCol * tileSize, tileSize, tileSize);
         instance.tileTable.set(wall1.name, wall1);
         // console.log(wall1);
     }

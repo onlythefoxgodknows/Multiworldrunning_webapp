@@ -23,7 +23,7 @@ function loadObjects(gameMap) {
     for (let row = 0; row < gameMap.length; row++) {
         for (let col = 0; col < gameMap[row].length; col++) {
             if (gameMap[row][col] === "x") {
-                const wall1 = tileFactory.getTile("wall1", col, row);
+                const wall1 = tileFactory.getTile("wall1", row, col);
                 wall1.render(ctx, graphics.getImage(wall1.name));
             }
         }
