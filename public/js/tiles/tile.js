@@ -9,4 +9,8 @@ export default class Tile {
         this.height = height
         this.solid = true;
     }
+
+    render(context, image) {
+        context.drawImage(image, this.x, this.y, this.width, this.height);
+    }
 }

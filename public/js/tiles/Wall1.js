@@ -5,7 +5,4 @@ export default class Wall1 extends tile {
         super(name, x, y, width, height);
     }
 
-    render(context, image) {
-        context.drawImage(image, this.x, this.y, this.width, this.height);
-    }
 }
