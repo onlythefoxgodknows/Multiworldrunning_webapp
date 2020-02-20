@@ -12,4 +12,9 @@ export default class Entity {
     render(ctx, spriteSheet, tileSize) {
         ctx.drawImage(spriteSheet[0], this.col * tileSize, this.row * tileSize, this.width, this.height);
     }
+
+    setLocation(row, col) {
+        this.row = row;
+        this.col = col;
+    }
 }

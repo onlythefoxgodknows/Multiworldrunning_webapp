@@ -1,8 +1,8 @@
 import GraphicsFactory from "./graphics/GraphicsFactory.js";
 import GameMap from "./mapGame/gameMap.js";
 import TileFactory from "./tiles/TileFactory.js";
-import Player from "./Entity/Player.js";
 import {tileSize} from "./constants/tileConstants.js";
+import Player from "./Entity/Player.js";
 
 const canvas = document.getElementById('screen');
 const ctx = canvas.getContext('2d');
@@ -29,9 +29,9 @@ function loadObjects(gameMap) {
                 const wall1 = tileFactory.getTile("wall1", row, col);
                 wall1.render(ctx, graphics.getImage(wall1.name), tileSize);
             } else if (c === "p") {
-                const player = new Player("player", row, col, tileSize, tileSize, true);
+                const player = Player.getInstance();
+                player.setLocation(row, col);
                 player.render(ctx, graphics.getImage(player.name), tileSize);
-                console.log(graphics.getImage(player.name));
             }
         }
     }
@@ -42,7 +42,13 @@ function main() {
 
     const gameMap = map.getMap1();
     loadObjects(gameMap);
+
+    function update() {
+
+    }
 }
+
+
 
 
 
