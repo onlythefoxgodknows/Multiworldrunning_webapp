@@ -12,8 +12,8 @@ const TileFactory = (() => {
                 const temp = instance.tileTable.get(name);
                 const newClone = Object.assign(new Tile(), temp);
 
-                newClone.row = row * tileSize;
-                newClone.col = col * tileSize;
+                newClone.row = row ;
+                newClone.col = col;
                 return newClone;
             }
         };

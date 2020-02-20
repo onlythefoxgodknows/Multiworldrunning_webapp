@@ -1,2 +1,2 @@
-const tileSize = 30;
+const tileSize = 40;
 export {tileSize}

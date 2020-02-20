@@ -1,14 +1,15 @@
 export default class Entity {
-    constructor(row, col, width, height, solid) {
+    constructor(name, row, col, width, height, solid) {
         this.row = row;
         this.col = col;
         this.width = width;
         this.height = height;
+        this.name = name;
         this.solid = solid;
     }
 
     //implement tick method later
-    render(ctx, sprite) {
-
+    render(ctx, spriteSheet, tileSize) {
+        ctx.drawImage(spriteSheet[0], this.col * tileSize, this.row * tileSize, this.width, this.height);
     }
 }

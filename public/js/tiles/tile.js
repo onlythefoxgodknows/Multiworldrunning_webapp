@@ -8,7 +8,7 @@ export default class Tile {
         this.solid = true;
     }
 
-    render(context, image) {
-        context.drawImage(image, this.col, this.row, this.width, this.height);
+    render(context, image, tileSize) {
+        context.drawImage(image, this.col * tileSize, this.row * tileSize, this.width, this.height);
     }
 }

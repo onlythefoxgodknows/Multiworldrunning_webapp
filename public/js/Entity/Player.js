@@ -1,6 +1,8 @@
-export default class Player extends Entity{
+import Entity from "./Entity.js";
 
-    constructor(row, col, width, height, solid) {
-        super(row, col, width, height, solid);
+export default class Player extends Entity {
+
+    constructor(name, row, col, width, height, solid) {
+        super(name, row, col, width, height, solid);
     }
 }

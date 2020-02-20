@@ -5,9 +5,7 @@ const wallsConfig = [
     {name: "wall2", imagePath: "./img/bricks_2.png"},
     {name: "wall3", imagePath: "./img/bricks_1.png"},
 ];
-const entityConfig = {
 
-}
 export default class GraphicsFactory {
     constructor() {
         this.graphicMap = new Map();
@@ -15,7 +13,7 @@ export default class GraphicsFactory {
 
     loadAllGraphics() {
         this.loadWallImages(wallsConfig);
-        this.loadEnitiesGraphics(entityConfig);
+        this.loadEntitiesGraphics();
     }
 
     loadWallImages(wallsConfig) {
@@ -30,7 +28,13 @@ export default class GraphicsFactory {
         return this.graphicMap.get(name);
     }
 
-    loadEnitiesGraphics(entityConfig) {
-        entityConfig.forEach()
+    loadEntitiesGraphics() {
+        const playerSprite = [];
+        for (let i = 0; i <= 23; i++) {
+            loadImage(`./img/player${i}.png`).then(img => {
+                playerSprite.push(img);
+            });
+            this.graphicMap.set("player", playerSprite);
+        }
     }
 }
