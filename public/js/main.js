@@ -7,6 +7,9 @@ import Player from "./Entity/Player.js";
 const canvas = document.getElementById('screen');
 const ctx = canvas.getContext('2d');
 
+const backgroundBuffer = document.createElement('canvas');
+backgroundBuffer.width = tileSize * 40; //40 objects
+backgroundBuffer.height = tileSize * 40;
 
 //load all images
 const graphics = new GraphicsFactory();
@@ -31,7 +34,7 @@ function loadObjects(gameMap) {
             } else if (c === "p") {
                 const player = Player.getInstance();
                 player.setLocation(row, col);
-                player.render(ctx, graphics.getImage(player.name), tileSize);
+                // player.render(ctx, graphics.getImage(player.name), tileSize);
             }
         }
     }
@@ -43,9 +46,20 @@ function main() {
     const gameMap = map.getMap1();
     loadObjects(gameMap);
 
-    function update() {
+    let frameDelay = 0;
 
+    function update() {
+        if (frameDelay === 0) {
+            const player = Player.getInstance();
+            ctx.clearRect(player.col * tileSize, player.row * tileSize, player.width, player.height);
+            player.col += 1;
+            player.render(ctx, graphics.getImage(player.name), tileSize);
+        }
+        frameDelay = (frameDelay + 1) % 8;
+        requestAnimationFrame(update);
     }
+
+    update();
 }
 
 
