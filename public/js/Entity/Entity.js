@@ -6,6 +6,9 @@ export default class Entity {
         this.height = height;
         this.name = name;
         this.solid = solid;
+        this.vel = new Vec2(0.5, 0);
+        this.gravity = 0.5;
+        this.facing = 1; // right
     }
 
     //implement tick method later
@@ -16,5 +19,16 @@ export default class Entity {
     setLocation(row, col) {
         this.row = row;
         this.col = col;
+    }
+    update(){
+        this.col += this.vel.col;
+        this.row += this.vel.row;
+        
+    }
+}
+class Vec2{
+    constructor(col, row){
+        this.col = col;
+        this.row = row;
     }
 }

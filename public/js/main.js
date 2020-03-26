@@ -14,27 +14,29 @@ backgroundBuffer.height = tileSize * 40;
 //load all images
 const graphics = new GraphicsFactory();
 const tileFactory = TileFactory.getInstance();
-
+const allWalls = [];
 function loadGraphics() {
     graphics.loadAllGraphics();
     setTimeout(() => {
         main();
     }, 2000);
 }
-
+const player = Player.getInstance();
 loadGraphics();
-
+function drawWalls(){
+    allWalls.forEach(w => {
+        w.render(ctx, graphics.getImage(w.name), tileSize);
+    })
+}
 function loadObjects(gameMap) {
     for (let row = 0; row < gameMap.length; row++) {
         for (let col = 0; col < gameMap[row].length; col++) {
             const c = gameMap[row][col];
             if (c === "x") {
                 const wall1 = tileFactory.getTile("wall1", row, col);
-                wall1.render(ctx, graphics.getImage(wall1.name), tileSize);
+                allWalls.push(wall1);
             } else if (c === "p") {
-                const player = Player.getInstance();
                 player.setLocation(row, col);
-                // player.render(ctx, graphics.getImage(player.name), tileSize);
             }
         }
     }
@@ -47,21 +49,26 @@ function main() {
     loadObjects(gameMap);
 
     let frameDelay = 0;
-
     function update() {
         if (frameDelay === 0) {
-            const player = Player.getInstance();
-            ctx.clearRect(player.col * tileSize, player.row * tileSize, player.width, player.height);
-            player.col += 1;
-            player.render(ctx, graphics.getImage(player.name), tileSize);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            updateLogic();
+            //redraw 
+            redraw();
         }
-        frameDelay = (frameDelay + 1) % 8;
+        frameDelay = (frameDelay + 1) % 4;
         requestAnimationFrame(update);
     }
-
     update();
 }
+function redraw(){
+    player.render(ctx, graphics.getImage(player.name), tileSize);
+    drawWalls();
+}
 
+function updateLogic(){
+    player.update();
+}
 
 
 
