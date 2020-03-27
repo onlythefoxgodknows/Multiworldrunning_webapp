@@ -1,3 +1,5 @@
+import Rectangle2D from "../utils/Rectangle2D.js"
+import { tileSize } from "../constants/tileConstants.js";
 export default class Tile {
     constructor(name, row, col, width, height) {
         this.name = name;
@@ -8,8 +10,10 @@ export default class Tile {
         this.solid = true;
     }
 
-    render(context, image, tileSize) {
-        context.drawImage(image, this.col * tileSize, this.row * tileSize, this.width, this.height);
+    render(ctx, image, tileSize) {
+        ctx.drawImage(image, this.col , this.row, this.width, this.height);
+        // ctx.fillStyle = 'green';
+        // ctx.fillRect(this.col + 10,this.row,this.width - 20 ,5);
     }
 
     //getBoundary
@@ -17,10 +21,10 @@ export default class Tile {
         return new Rectangle2D(this.col, this.row, this.width, this.height);
     }
     getTopBoundary(){
-        return new Rectangle2D(this.col,this.row,this.width,5);
+        return new Rectangle2D(this.col + 10,this.row,this.width - 20 ,5);
     }
     getBottomBoundary(){
-        return new Rectangle2D(this.col + 10,this.row + this.height - 5,this.width-20,5);
+        return new Rectangle2D(this.col + 10,this.row + this.height - 5,this.width-20, 5);
     }
     getLeftBoundary(){
         return new Rectangle2D(this.col, this.row+ 10, 5, this.height-20);

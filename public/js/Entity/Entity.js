@@ -1,3 +1,5 @@
+import Rectangle2D from "../utils/Rectangle2D.js"
+import { tileSize } from "../constants/tileConstants.js";
 export default class Entity {
     constructor(name, row, col, width, height, solid) {
         this.row = row;
@@ -7,7 +9,7 @@ export default class Entity {
         this.name = name;
         this.solid = solid;
         this.vel = new Vec(0, 0);
-        this.gravity = 0.5;
+        this.gravity = 2;
         this.facing = 1; // right
         this.isMovingLeft = false;
         this.isMovingRight = false;
@@ -15,7 +17,8 @@ export default class Entity {
 
     //implement tick method later
     render(ctx, spriteSheet, tileSize) {
-        ctx.drawImage(spriteSheet[0], this.col * tileSize, this.row * tileSize, this.width, this.height);
+        // ctx.drawImage(spriteSheet[0], this.col * tileSize, this.row * tileSize, this.width, this.height);
+        ctx.drawImage(spriteSheet[0], this.col, this.row, this.width, this.height);
     }
 
     setLocation(row, col) {
@@ -26,11 +29,11 @@ export default class Entity {
         this.col += this.vel.col;
         this.row += this.vel.row;
         if(this.isMovingLeft){
-            this.vel.col = - 0.5;
+            this.vel.col = -8;
             this.facing = 0;
         }
         else if(this.isMovingRight){
-            this.vel.col = 0.5;
+            this.vel.col = 8;
             this.facing = 1;
         }
         else {
@@ -39,7 +42,7 @@ export default class Entity {
     }
 
     getBoundary(){
-        return new Rectangle2D(this.col, this.row, this.width, this.height);
+        return new Rectangle2D(this.col , this.row, this.width, this.height);
     }
     getTopBoundary(){
         return new Rectangle2D(this.col,this.row,this.width,5);
@@ -74,22 +77,5 @@ class Vec{
     constructor(col, row){
         this.col = col;
         this.row = row;
-    }
-}
-
-class Rectangle2D{
-    constructor(col, row, width, height){
-        this.col = col;
-        this.row = col;
-        this.width = width;
-        this.height = height;
-    }
-    intersects(r){
-        if(r){
-            return this.col < r.col + r.width &&
-            this.col + this.width > r.col &&
-            this.row < r.row + r.height &&
-            this.row + this.height > r.row
-        }
     }
 }

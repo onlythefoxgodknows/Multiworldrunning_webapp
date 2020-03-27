@@ -29,11 +29,11 @@ function loadObjects(gameMap) {
         for (let col = 0; col < gameMap[row].length; col++) {
             const c = gameMap[row][col];
             if (c === "x") {
-                const wall1 = tileFactory.getTile("wall1", row, col);
+                const wall1 = tileFactory.getTile("wall1", row * tileSize, col * tileSize);
                 // allWalls.push(wall1);
                 allTiles.addTile(wall1);
             } else if (c === "p") {
-                player.setLocation(row, col);
+                player.setLocation(row * tileSize, col * tileSize);
             }
         }
     }
@@ -72,7 +72,6 @@ function updateLogic(){
 function prepareKeyEvents(){
     document.addEventListener('keypress', (event) => {
         const key = event.code;
-        console.log(key);
         if(key == 'KeyD') player.isMovingRight = true;
         else if(key == 'KeyA') player.isMovingLeft = true;
         if(key == 'Space') player.isJumping = true;
@@ -85,6 +84,7 @@ function prepareKeyEvents(){
     });
 }
 
+export default ctx;
 
 
 

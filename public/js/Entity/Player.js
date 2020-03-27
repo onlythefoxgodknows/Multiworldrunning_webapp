@@ -1,7 +1,8 @@
 import Entity from "./Entity.js";
 import {tileSize} from "../constants/tileConstants.js";
-
-
+import TileHandler from "../tiles/TileHandler.js";
+// import contextDebugger from "../main.js"
+const allTiles = TileHandler.getInstance().tiles;
 const Player = (() => {
     class PlayerInstance extends Entity {
         constructor(name, row, col, width, height, solid) {
@@ -13,7 +14,7 @@ const Player = (() => {
         }
         update(){
             super.update();
-            // this.vel.row += this.gravity;
+            this.vel.row += this.gravity;
 
             let walkFrameDelay = 0, swimFrameDelay = 0;
             // this.isMovingRight = true;
@@ -33,81 +34,88 @@ const Player = (() => {
                     swimFrameDelay = (swimFrameDelay + 1) % 10;
                 }
             }
-            // this.tileColldingCheck();
+            allTiles.forEach(t => {
+                this.tileColldingCheck(t);
+            });
             // if(this.isJumping)
             //     this.row -= 0.5;
 
         }
-        tileColldingCheck(){
+        tileColldingCheck(t){
             if (this.intersectsTopTile(t)) {
                 this.row = t.row - this.height;
-                this.vel.row = 0.1;
+                this.vel.row = 0;
                 this.isJumping = false;
             }
 
             if (this.intersectsBottomTile(t)) {
                 this.row = t.row + this.height;
+                // console.log("bottom");
             }
             if (this.intersectsRightTile(t)) {
-                this.col = t.row + t.width;
-                this.vel.row = x;
+                this.col = t.col + t.width;
+                this.vel.col = 0;
+                // console.log("right");
             }
             if (this.intersectsLeftTile(t)) {
-                this.row = t.row - t.width;
-                this.vel.row = 0;
+                this.col = t.col - t.width;
+                this.vel.col = 0;
+                // console.log("left");
             }
         }
         //overried render method
         render(ctx, spriteSheet, tileSize) {
+            // ctx.fillStyle = 'green';
+            // ctx.fillRect(this.col, this.row, this.width, this.height);
             if(this.facing == 0){
                 if(!this.isJumping){
                     if(this.isMovingLeft){
                         if(!this.isSwiming){
-                            ctx.drawImage(spriteSheet[this.frame + 5],this.col * tileSize, this.row * tileSize, this.width, this.height);
+                            ctx.drawImage(spriteSheet[this.frame + 5],this.col , this.row , this.width, this.height);
                         }
                         else{
-                            ctx.drawImage(spriteSheet[this.frame + 8],this.col * tileSize, this.row * tileSize, this.width, this.height);
+                            ctx.drawImage(spriteSheet[this.frame + 8],this.col, this.row , this.width, this.height);
                         }
                     }
                     else{
                         if (!this.isSwimming) {
                             if (this.isShooting) {
-                                ctx.drawImage(spriteSheet[21],this.col * tileSize, this.row * tileSize, this.width, this.height);
+                                ctx.drawImage(spriteSheet[21],this.col, this.row, this.width, this.height);
                             } else {
-                                ctx.drawImage(spriteSheet[4], this.col * tileSize, this.row * tileSize, this.width, this.height);
+                                ctx.drawImage(spriteSheet[4], this.col , this.row, this.width, this.height);
                             }
                         } else {
-                            ctx.drawImage(spriteSheet[this.frame + 8],this.col * tileSize, this.row * tileSize, this.width, this.height);
+                            ctx.drawImage(spriteSheet[this.frame + 8],this.col, this.row, this.width, this.height);
                         }
                     }
                 }
                 else{
-                    ctx.drawImage(spriteSheet[5],this.col * tileSize, this.row * tileSize, this.width, this.height);
+                    ctx.drawImage(spriteSheet[5],this.col, this.row, this.width, this.height);
                 }
             }
             else{
                 if (!this.isJumping) {
                     if (this.isMovingRight) {
                         if (!this.isSwimming) {
-                            ctx.drawImage(spriteSheet[this.frame + 1], this.col * tileSize, this.row * tileSize, this.width, this.height);
+                            ctx.drawImage(spriteSheet[this.frame + 1], this.col, this.row, this.width, this.height);
                         } else {
-                            ctx.drawImage(spriteSheet[this.frame + 15],this.col * tileSize, this.row * tileSize, this.width, this.height);
+                            ctx.drawImage(spriteSheet[this.frame + 15],this.col, this.row, this.width, this.height);
                         }
     
                     } else {
                         if (!this.isSwimming) {
                             if (this.isShooting) {
-                                ctx.drawImage(spriteSheet[20], this.col * tileSize, this.row * tileSize, this.width, this.height);
+                                ctx.drawImage(spriteSheet[20], this.col, this.row, this.width, this.height);
                             } else {
-                                ctx.drawImage(spriteSheet[0],this.col * tileSize, this.row * tileSize, this.width, this.height);
+                                ctx.drawImage(spriteSheet[0],this.col, this.row, this.width, this.height);
                             }
                         } else {
-                            ctx.drawImage(spriteSheet[this.frame + 15], this.col * tileSize, this.row * tileSize, this.width, this.height);
+                            ctx.drawImage(spriteSheet[this.frame + 15], this.col , this.row, this.width, this.height);
                         }
                     }
                 } 
                 else {
-                    ctx.drawImage(spriteSheet[1],this.col * tileSize, this.row * tileSize, this.width, this.height);
+                    ctx.drawImage(spriteSheet[1],this.col, this.row , this.width, this.height);
                 }
             }
         }
