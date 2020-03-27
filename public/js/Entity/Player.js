@@ -8,7 +8,6 @@ const Player = (() => {
         constructor(name, row, col, width, height, solid) {
             super(name, row, col, width, height, solid);
             this.isJumping = false;
-            this.isSwiming = false;
             this.animate = false;
             this.frame = 0;
         }
@@ -19,7 +18,7 @@ const Player = (() => {
             let walkFrameDelay = 0, swimFrameDelay = 0;
             // this.isMovingRight = true;
 
-            this.animate = (this.isMovingLeft || this.isMovingRight || this.isSwiming);
+            this.animate = (this.isMovingLeft || this.isMovingRight || this.isSwimming);
             if(this.animate){
                 if(!this.isSwimming){
                     if(walkFrameDelay == 0){
@@ -31,9 +30,10 @@ const Player = (() => {
                     if(swimFrameDelay == 0){
                         this.frame = (this.frame + 1) % 5;
                     }
-                    swimFrameDelay = (swimFrameDelay + 1) % 10;
+                    swimFrameDelay = (swimFrameDelay + 1) % 11;
                 }
             }
+            this.isSwimming = false;
             allTiles.forEach(t => {
                 this.tileColldingCheck(t);
             });
@@ -43,6 +43,12 @@ const Player = (() => {
 
         }
         tileColldingCheck(t){
+            if(t.name === "waterWall" && !t.isSolid){
+                if(this.intersectsTile(t)){
+                    this.isSwimming = true;
+                }
+                return;
+            }
             if (this.intersectsTopTile(t)) {
                 this.row = t.row - this.height;
                 this.vel.row = 0.1;
@@ -71,10 +77,12 @@ const Player = (() => {
             if(this.facing == 0){
                 if(!this.isJumping){
                     if(this.isMovingLeft){
-                        if(!this.isSwiming){
+                        if(!this.isSwimming){
+                            console.log("walking left");
                             ctx.drawImage(spriteSheet[this.frame + 5],this.col , this.row , this.width, this.height);
                         }
                         else{
+                            console.log("swimming left");
                             ctx.drawImage(spriteSheet[this.frame + 8],this.col, this.row , this.width, this.height);
                         }
                     }
@@ -98,8 +106,10 @@ const Player = (() => {
                 if (!this.isJumping) {
                     if (this.isMovingRight) {
                         if (!this.isSwimming) {
+                            console.log("walking right");
                             ctx.drawImage(spriteSheet[this.frame + 1], this.col, this.row, this.width, this.height);
                         } else {
+                            console.log("swimming right");
                             ctx.drawImage(spriteSheet[this.frame + 15],this.col, this.row, this.width, this.height);
                         }
     

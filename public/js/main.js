@@ -20,11 +20,11 @@ function loadGraphics() {
     graphics.loadAllGraphics();
     setTimeout(() => {
         main();
-    }, 2000);
+    }, 4000);
 }
 const player = Player.getInstance();
 loadGraphics();
-const wallNamesMap = { x: "wall1", m: "wall2", "-": "woodBridge", "^": "trap1", "o": "fireTrap"}
+const wallNamesMap = { x: "wall1", m: "wall2", "-": "woodBridge", "^": "trap1", "o": "fireWall", "w" :"waterWall"}
 function loadObjects(gameMap) {
     //load background image to buffer
     backgroundBuffer.img = graphics.getImage("background");
@@ -34,8 +34,9 @@ function loadObjects(gameMap) {
             if (c === "p") {
                 player.setLocation(row * tileSize, col * tileSize);
             }
-            else if (c ==="x" || c === "m" || c === "-"){
+            else if (c ==="x" || c === "m" || c === "-" || c == 'w'){
                 const wall = tileFactory.getTile(wallNamesMap[c], row * tileSize, col * tileSize);
+                if(c === 'w') wall.isSolid = false;
                 allTiles.addTile(wall);
             }
         }

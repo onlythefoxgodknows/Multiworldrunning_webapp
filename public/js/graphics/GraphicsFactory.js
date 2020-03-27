@@ -5,7 +5,9 @@ const wallsConfig = [
     {name: "wall2", imagePath: "./img/bricks_2.png"},
     {name: "wall3", imagePath: "./img/bricks_3.png"},
     {name: "woodBridge", imagePath: "./img/wood.png"},
-    {name: "background", imagePath: "./img/background.png"}
+    {name: "background", imagePath: "./img/background.png"},
+    {name: "fireWall", imagePath: "./img/fire.gif"},
+    {name: "waterWall", imagePath: "./img/water.jpg"}
 ];
 
 export default class GraphicsFactory {

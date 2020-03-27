@@ -27,6 +27,8 @@ const TileFactory = (() => {
         instance.tileTable.set(wall1.name, wall1);
         instance.tileTable.set(wall2.name, wall2);
         instance.tileTable.set(woodBridge.name, woodBridge);
+        instance.tileTable.set("fireWall", new Wall1("fireWall", 0, 0, tileSize, tileSize));
+        instance.tileTable.set("waterWall", new Wall1("waterWall", 0, 0, tileSize, tileSize));
         // console.log(wall1);
     }
 
