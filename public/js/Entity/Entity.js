@@ -9,7 +9,7 @@ export default class Entity {
         this.name = name;
         this.solid = solid;
         this.vel = new Vec(0, 0);
-        this.gravity = 2;
+        this.gravity = 4;
         this.facing = 1; // right
         this.isMovingLeft = false;
         this.isMovingRight = false;

@@ -84,12 +84,26 @@ function prepareKeyEvents(){
             player.isJumping = true; 
             // console.log("jumping")
         }
+        if(player.isSwimming){
+            if(key == 'KeyW'){
+                player.isSwimmingUp = true;
+                player.vel.row = -6;
+                player.isSwimmingDown = false;
+            }
+            else if(key == 'KeyS'){
+                player.isSwimmingDown = true;
+                player.vel.row = 6;
+                player.isSwimmingUp = false;
+            }
+        }
     });
     document.addEventListener('keyup', (event) => {
         const key = event.code;
         if(key == 'KeyD') player.isMovingRight = false;
         if(key == 'KeyA') player.isMovingLeft = false;
         // if(key == 'Space') player.isJumping = false;
+        if(key == 'KeyW') player.isSwimmingUp = false;
+        if(key == 'KeyS') player.isSwimmingDown = false;
     });
 }
 

@@ -10,27 +10,31 @@ const Player = (() => {
             this.isJumping = false;
             this.animate = false;
             this.frame = 0;
+            this.swimFrameDelay = 0;
+            this.walkFrameDelay = 0;
+            this.isSwimmingUp = false;
+            this.isSwimmingDown = false;
         }
         update(){
             super.update();
             // this.vel.row += this.gravity;
 
-            let walkFrameDelay = 0, swimFrameDelay = 0;
             // this.isMovingRight = true;
 
             this.animate = (this.isMovingLeft || this.isMovingRight || this.isSwimming);
+            this.gravity = this.isSwimming? 0.2: 4;
             if(this.animate){
                 if(!this.isSwimming){
-                    if(walkFrameDelay == 0){
+                    if(this.walkFrameDelay == 0){
                         this.frame = (this.frame + 1) % 3;
                     }
-                    walkFrameDelay = (walkFrameDelay + 1) % 4;
+                    this.walkFrameDelay = (this.walkFrameDelay + 1) % 4;
                 }
                 else{
-                    if(swimFrameDelay == 0){
+                    if(this.swimFrameDelay == 0){
                         this.frame = (this.frame + 1) % 5;
                     }
-                    swimFrameDelay = (swimFrameDelay + 1) % 11;
+                    this.swimFrameDelay = (this.swimFrameDelay + 1) % 4;
                 }
             }
             this.isSwimming = false;
@@ -51,23 +55,20 @@ const Player = (() => {
             }
             if (this.intersectsTopTile(t)) {
                 this.row = t.row - this.height;
-                this.vel.row = 0.1;
                 this.isJumping = false;
+                this.vel.row = 0;
             }
 
             if (this.intersectsBottomTile(t)) {
                 this.row = t.row + this.height;
-                // console.log("bottom");
             }
             if (this.intersectsRightTile(t)) {
                 this.col = t.col + t.width;
                 this.vel.col = 0;
-                // console.log("right");
             }
             if (this.intersectsLeftTile(t)) {
                 this.col = t.col - t.width;
                 this.vel.col = 0;
-                // console.log("left");
             }
         }
         //overried render method
@@ -106,10 +107,8 @@ const Player = (() => {
                 if (!this.isJumping) {
                     if (this.isMovingRight) {
                         if (!this.isSwimming) {
-                            console.log("walking right");
                             ctx.drawImage(spriteSheet[this.frame + 1], this.col, this.row, this.width, this.height);
                         } else {
-                            console.log("swimming right");
                             ctx.drawImage(spriteSheet[this.frame + 15],this.col, this.row, this.width, this.height);
                         }
     
