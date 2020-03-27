@@ -14,7 +14,7 @@ const Player = (() => {
         }
         update(){
             super.update();
-            this.vel.row += this.gravity;
+            // this.vel.row += this.gravity;
 
             let walkFrameDelay = 0, swimFrameDelay = 0;
             // this.isMovingRight = true;
@@ -37,14 +37,15 @@ const Player = (() => {
             allTiles.forEach(t => {
                 this.tileColldingCheck(t);
             });
-            // if(this.isJumping)
-            //     this.row -= 0.5;
+            
+            if(this.vel.row < 25)
+                this.vel.row += this.gravity;
 
         }
         tileColldingCheck(t){
             if (this.intersectsTopTile(t)) {
                 this.row = t.row - this.height;
-                this.vel.row = 0;
+                this.vel.row = 0.1;
                 this.isJumping = false;
             }
 

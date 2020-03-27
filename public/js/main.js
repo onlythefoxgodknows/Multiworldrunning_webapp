@@ -74,13 +74,17 @@ function prepareKeyEvents(){
         const key = event.code;
         if(key == 'KeyD') player.isMovingRight = true;
         else if(key == 'KeyA') player.isMovingLeft = true;
-        if(key == 'Space') player.isJumping = true;
+        if(key == 'Space' && !player.isJumping){
+            player.vel.row = -15;
+            player.isJumping = true; 
+            // console.log("jumping")
+        }
     });
     document.addEventListener('keyup', (event) => {
         const key = event.code;
         if(key == 'KeyD') player.isMovingRight = false;
         if(key == 'KeyA') player.isMovingLeft = false;
-        if(key == 'Space') player.isJumping = false;
+        // if(key == 'Space') player.isJumping = false;
     });
 }
 
