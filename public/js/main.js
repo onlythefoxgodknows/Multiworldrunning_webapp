@@ -24,16 +24,19 @@ function loadGraphics() {
 }
 const player = Player.getInstance();
 loadGraphics();
+const wallNamesMap = { x: "wall1", m: "wall2", "-": "woodBridge", "^": "trap1", "o": "fireTrap"}
 function loadObjects(gameMap) {
+    //load background image to buffer
+    backgroundBuffer.img = graphics.getImage("background");
     for (let row = 0; row < gameMap.length; row++) {
         for (let col = 0; col < gameMap[row].length; col++) {
             const c = gameMap[row][col];
-            if (c === "x") {
-                const wall1 = tileFactory.getTile("wall1", row * tileSize, col * tileSize);
-                // allWalls.push(wall1);
-                allTiles.addTile(wall1);
-            } else if (c === "p") {
+            if (c === "p") {
                 player.setLocation(row * tileSize, col * tileSize);
+            }
+            else if (c ==="x" || c === "m" || c === "-"){
+                const wall = tileFactory.getTile(wallNamesMap[c], row * tileSize, col * tileSize);
+                allTiles.addTile(wall);
             }
         }
     }
@@ -61,6 +64,7 @@ function main() {
     update();
 }
 function redraw(){
+    ctx.drawImage(backgroundBuffer.img, 0, 0, backgroundBuffer.width, backgroundBuffer.height);
     allTiles.renderAllTiles(ctx, graphics, tileSize);
     player.render(ctx, graphics.getImage(player.name), tileSize);
 }

@@ -22,7 +22,11 @@ const TileFactory = (() => {
     function loadCache() {
         const defaultRow = 0, defaultCol = 0;
         const wall1 = new Wall1("wall1", defaultRow * tileSize, defaultCol * tileSize, tileSize, tileSize);
+        const wall2 = new Wall1("wall2", defaultRow * tileSize, defaultCol * tileSize, tileSize, tileSize);
+        const woodBridge = new Wall1("woodBridge", defaultRow * tileSize, defaultCol * tileSize, tileSize, tileSize);
         instance.tileTable.set(wall1.name, wall1);
+        instance.tileTable.set(wall2.name, wall2);
+        instance.tileTable.set(woodBridge.name, woodBridge);
         // console.log(wall1);
     }
 

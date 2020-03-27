@@ -3,7 +3,9 @@ import {loadImage} from "../utils/loader.js";
 const wallsConfig = [
     {name: "wall1", imagePath: "./img/bricks_1.png"},
     {name: "wall2", imagePath: "./img/bricks_2.png"},
-    {name: "wall3", imagePath: "./img/bricks_1.png"},
+    {name: "wall3", imagePath: "./img/bricks_3.png"},
+    {name: "woodBridge", imagePath: "./img/wood.png"},
+    {name: "background", imagePath: "./img/background.png"}
 ];
 
 export default class GraphicsFactory {
@@ -27,7 +29,6 @@ export default class GraphicsFactory {
     getImage(name) {
         return this.graphicMap.get(name);
     }
-
     loadEntitiesGraphics() {
         const playerSprite = [];
         for (let i = 0; i <= 23; i++) {
