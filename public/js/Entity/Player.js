@@ -8,8 +8,6 @@ const Player = (() => {
             super(name, row, col, width, height, solid);
             this.isJumping = false;
             this.isSwiming = false;
-            this.isMovingLeft = false;
-            this.isMovingRight = false;
             this.animate = false;
             this.frame = 0;
         }
@@ -35,11 +33,32 @@ const Player = (() => {
                     swimFrameDelay = (swimFrameDelay + 1) % 10;
                 }
             }
+            // this.tileColldingCheck();
+            // if(this.isJumping)
+            //     this.row -= 0.5;
 
+        }
+        tileColldingCheck(){
+            if (this.intersectsTopTile(t)) {
+                this.row = t.row - this.height;
+                this.vel.row = 0.1;
+                this.isJumping = false;
+            }
+
+            if (this.intersectsBottomTile(t)) {
+                this.row = t.row + this.height;
+            }
+            if (this.intersectsRightTile(t)) {
+                this.col = t.row + t.width;
+                this.vel.row = x;
+            }
+            if (this.intersectsLeftTile(t)) {
+                this.row = t.row - t.width;
+                this.vel.row = 0;
+            }
         }
         //overried render method
         render(ctx, spriteSheet, tileSize) {
-            // ctx.drawImage(spriteSheet[this.imageFrame],this.col * tileSize, this.row * tileSize, this.width, this.height);
             if(this.facing == 0){
                 if(!this.isJumping){
                     if(this.isMovingLeft){

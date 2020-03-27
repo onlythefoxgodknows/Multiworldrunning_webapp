@@ -11,4 +11,21 @@ export default class Tile {
     render(context, image, tileSize) {
         context.drawImage(image, this.col * tileSize, this.row * tileSize, this.width, this.height);
     }
+
+    //getBoundary
+    getBoundary(){
+        return new Rectangle2D(this.col, this.row, this.width, this.height);
+    }
+    getTopBoundary(){
+        return new Rectangle2D(this.col,this.row,this.width,5);
+    }
+    getBottomBoundary(){
+        return new Rectangle2D(this.col + 10,this.row + this.height - 5,this.width-20,5);
+    }
+    getLeftBoundary(){
+        return new Rectangle2D(this.col, this.row+ 10, 5, this.height-20);
+    }
+    getRightBoundary(){
+        return new Rectangle2D(this.col + this.width - 5, this.row + 10, 5, this.height - 20);
+    }
 }
