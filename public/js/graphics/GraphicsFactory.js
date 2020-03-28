@@ -14,10 +14,11 @@ export default class GraphicsFactory {
         this.graphicMap = new Map();
     }
 
-    loadAllGraphics() {
+    loadAllGraphics(callback) {
         this.loadWallImages(wallsConfig);
         this.loadEntitiesGraphics().then((playerSprite) => {
             this.graphicMap.set("player", playerSprite);
+            callback();
         });
     }
 

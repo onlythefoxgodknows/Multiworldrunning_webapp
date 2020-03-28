@@ -16,14 +16,11 @@ backgroundBuffer.height = tileSize * 40;
 const graphics = new GraphicsFactory();
 const tileFactory = TileFactory.getInstance();
 const allTiles = TileHandler.getInstance();
-function loadGraphics() {
-    graphics.loadAllGraphics();
-    setTimeout(() => {
-        main();
-    }, 2000);
-}
+
 const player = Player.getInstance();
-loadGraphics();
+
+graphics.loadAllGraphics(main);
+
 function loadObjects(gameMap) {
     const wallNamesMap = { x: "wall1", m: "wall2", "-": "woodBridge", "^": "trap1", "o": "fireWall", "w" :"waterWall"}
     //load background image to buffer
