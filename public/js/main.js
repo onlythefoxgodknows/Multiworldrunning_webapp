@@ -20,7 +20,7 @@ function loadGraphics() {
     graphics.loadAllGraphics();
     setTimeout(() => {
         main();
-    }, 1000);
+    }, 2000);
 }
 const player = Player.getInstance();
 loadGraphics();

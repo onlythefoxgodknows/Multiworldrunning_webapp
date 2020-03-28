@@ -1,6 +1,7 @@
 import Wall1 from "./Wall1.js";
 import {tileSize} from "../constants/tileConstants.js"
 import Tile from "./tile.js";
+import WoodBridge from "./WoodBridge.js";
 
 const TileFactory = (() => {
     let instance;
@@ -10,7 +11,8 @@ const TileFactory = (() => {
             tileTable: new Map(),
             getTile: (name, row, col) => {
                 const temp = instance.tileTable.get(name);
-                const newClone = Object.assign(new Tile(), temp);
+                const newWall = name === "woodBridge" ? new WoodBridge() : new Wall1();
+                const newClone = Object.assign(newWall, temp);
 
                 newClone.row = row ;
                 newClone.col = col;
@@ -23,7 +25,9 @@ const TileFactory = (() => {
         const defaultRow = 0, defaultCol = 0;
         const wall1 = new Wall1("wall1", defaultRow * tileSize, defaultCol * tileSize, tileSize, tileSize);
         const wall2 = new Wall1("wall2", defaultRow * tileSize, defaultCol * tileSize, tileSize, tileSize);
-        const woodBridge = new Wall1("woodBridge", defaultRow * tileSize, defaultCol * tileSize, tileSize, tileSize);
+    
+        const woodBridge = new WoodBridge("woodBridge", defaultRow * tileSize, defaultCol * tileSize, tileSize, 10);
+        
         instance.tileTable.set(wall1.name, wall1);
         instance.tileTable.set(wall2.name, wall2);
         instance.tileTable.set(woodBridge.name, woodBridge);

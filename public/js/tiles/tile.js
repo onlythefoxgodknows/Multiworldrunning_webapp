@@ -12,8 +12,6 @@ export default class Tile {
 
     render(ctx, image, tileSize) {
         ctx.drawImage(image, this.col , this.row, this.width, this.height);
-        // ctx.fillStyle = 'green';
-        // ctx.fillRect(this.col + 10,this.row,this.width - 20 ,5);
     }
 
     //getBoundary
