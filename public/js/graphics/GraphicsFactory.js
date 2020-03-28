@@ -9,7 +9,6 @@ const wallsConfig = [
     {name: "fireWall", imagePath: "./img/fire.gif"},
     {name: "waterWall", imagePath: "./img/water.jpg"}
 ];
-
 export default class GraphicsFactory {
     constructor() {
         this.graphicMap = new Map();
@@ -17,7 +16,9 @@ export default class GraphicsFactory {
 
     loadAllGraphics() {
         this.loadWallImages(wallsConfig);
-        this.loadEntitiesGraphics();
+        this.loadEntitiesGraphics().then((playerSprite) => {
+            this.graphicMap.set("player", playerSprite);
+        });
     }
 
     loadWallImages(wallsConfig) {
@@ -31,13 +32,13 @@ export default class GraphicsFactory {
     getImage(name) {
         return this.graphicMap.get(name);
     }
-    loadEntitiesGraphics() {
-        const playerSprite = [];
+    async loadEntitiesGraphics() {
+        let playerSprite = [];
         for (let i = 0; i <= 23; i++) {
-            loadImage(`./img/player${i}.png`).then(img => {
+            await loadImage(`./img/player${i}.png`).then(img => {
                 playerSprite.push(img);
             });
-            this.graphicMap.set("player", playerSprite);
         }
+        return Promise.resolve(playerSprite);
     }
 }

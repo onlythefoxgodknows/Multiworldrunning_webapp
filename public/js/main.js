@@ -20,12 +20,12 @@ function loadGraphics() {
     graphics.loadAllGraphics();
     setTimeout(() => {
         main();
-    }, 4000);
+    }, 1000);
 }
 const player = Player.getInstance();
 loadGraphics();
-const wallNamesMap = { x: "wall1", m: "wall2", "-": "woodBridge", "^": "trap1", "o": "fireWall", "w" :"waterWall"}
 function loadObjects(gameMap) {
+    const wallNamesMap = { x: "wall1", m: "wall2", "-": "woodBridge", "^": "trap1", "o": "fireWall", "w" :"waterWall"}
     //load background image to buffer
     backgroundBuffer.img = graphics.getImage("background");
     for (let row = 0; row < gameMap.length; row++) {
@@ -59,7 +59,7 @@ function main() {
             //redraw 
             redraw();
         }
-        frameDelay = (frameDelay + 1) % 4;
+        frameDelay = (frameDelay + 1) % 3;
         requestAnimationFrame(update);
     }
     update();
